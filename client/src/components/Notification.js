@@ -4,9 +4,6 @@ import Loader from 'react-loader-spinner'
 import checkmark from '../src_images/checkmark.png';
 import xmark from '../src_images/xmark.png';
 
-
-
-
 class Notification extends Component {
 
     updateShowNotify = () => this.setState({showA: true});
@@ -47,8 +44,8 @@ class Notification extends Component {
                                 </>
                                 :   
                                 <>
-                                {this.props.trxStatus === 'Success' ? <><b className='text-success ml-2'>Success</b> <img src={checkmark} className='float-left ml-2' height='15' width='15' alt='checkmark'/> </> : 
-                                    <>{this.props.trxStatus === 'Failed' ? <> <b className='text-danger ml-2'>Failed</b> <img src={xmark} className='float-left ml-2' height='15' width='15' alt='xmark'/> </> : null}</>
+                                {this.props.trxStatus === 'Success' ? <><b className='text-success mt ml-2'>Success</b> <img src={checkmark} className='float-left ml-1' height='20' width='20' alt='checkmark'/> </> : 
+                                    <>{this.props.trxStatus === 'Failed' ? <> <b className='text-danger ml-2'>Failed</b> <img src={xmark} className='float-left ml-1' height='20' width='20' alt='xmark'/> </> : null}</>
                                 }
                                 </>
                             }

@@ -120,7 +120,6 @@ constructor(props) {
     isConnected: null,
     contract: {},
     count: null,
-    daiBalance: 0,
     currentEthBalance: '0',
     hash: '0x0',
     action: null,
