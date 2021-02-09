@@ -30,6 +30,7 @@ async loadBlockchainData() {
   this.setState({loading: false})
 }
 
+//Loads user account data
 async loadAccountData() {
   let web3 = new Web3(window.ethereum) 
   const accounts = await this.state.web3.eth.getAccounts()
@@ -49,6 +50,7 @@ async loadAccountData() {
   }
 }
 
+//Loads the data of the smart-contract
 async loadContractData() {
   let contractAdmin
   let CountData = Count.networks[5777]
@@ -70,10 +72,12 @@ async loadContractData() {
 
 }
 
+//Shows notification
 showNotification = () => {
   this.notificationOne.current.updateShowNotify()
 }
 
+//Increments the Count
 async increment() {
   await this.state.contract.methods.increment().send({from: this.state.account})
   this.showNotification()
