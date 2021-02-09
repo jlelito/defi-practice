@@ -63,7 +63,7 @@ class AccountModal extends Component {
                 borderColor={'#E8E8E8'}
                 justifyContent={'left'}
               >
-                Your transactions will appear here...
+                
               </Flex>
             </Card>
           </Modal>
