@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Identicon from 'identicon';
+import Identicon from 'identicon.js';
 import ethlogo from '../src_images/ETH.png';
 import coloreth from '../src_images/eth-diamond-rainbow.png';
 import 'react-bootstrap';
@@ -23,7 +23,7 @@ class Navbar extends Component {
           rel='noopener noreferrer'
         >
           <img src={coloreth} width='20' height='30' className='d-inline-block align-top mr-2' alt='rainbow eth logo' />
-          Yearn Wallet
+          Example Title
         </div>
         <ul className='navbar-nav px-3'>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
@@ -53,13 +53,13 @@ class Navbar extends Component {
                 <div id='account' className='text-white float-right my-2'>
                   <AccountModal account={this.props.account}/> 
                 </div>
-                {/* <img
+                <img
                   className='mr-2 float-right rounded my-2'
                   width='30'
                   height='30'
                   src={`data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`}
                   alt='identicon'
-                /> */}
+                />
                 <div className='text-white mx-2 my-2'>Ropsten Faucet: <a href='https://faucet.ropsten.be/' target='_blank' rel='noopener noreferrer'>Faucet</a></div>
               </> 
               : 

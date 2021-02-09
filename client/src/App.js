@@ -62,7 +62,7 @@ async loadContractData() {
     const tokenContract = new this.state.web3.eth.Contract(abi, address)
     await this.setState({ contract : tokenContract })
     console.log('Count contract:', this.state.contract)
-
+    console.log('Getting admin')
     contractAdmin = await this.state.contract.methods.admin().call()
     console.log('Admin:', contractAdmin)
     this.setState({  admin: contractAdmin })
@@ -79,8 +79,32 @@ showNotification = () => {
 
 //Increments the Count
 async increment() {
-  await this.state.contract.methods.increment().send({from: this.state.account})
-  this.showNotification()
+  try {
+    this.state.contract.methods.increment().send({ from: this.state.account }).on('transactionHash', async (hash) => {
+       this.setState({hash: hash, action: 'Count Incremented', trxStatus: 'Pending'})
+       this.showNotification()
+
+      }).on('receipt', async (receipt) => {
+          await this.loadContractData()
+          if(receipt.status === true){
+            this.setState({trxStatus: 'Success'})
+          }
+          else if(receipt.status === false){
+            this.setState({trxStatus: 'Failed'})
+          }
+      }).on('error', (error) => {
+          window.alert('Error! Could not increment!')
+      }).on('confirmation', (confirmNum) => {
+          if(confirmNum > 10) {
+            this.setState({confirmNum : '10+'})
+          } else {
+          this.setState({confirmNum})
+          }
+      })
+    }
+    catch(e) {
+      window.alert(e)
+    }
 }
 
 constructor(props) {
