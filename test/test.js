@@ -1,39 +1,32 @@
 const { assert } = require('chai')
 
-const Wallet = artifacts.require("./Wallet.sol");
+const Count = artifacts.require("./Count.sol");
 
 require('chai')
   .use(require('chai-as-promised'))
   .should()
 
-contract("Wallet", accounts => {
-  let WalletInstance
+contract("Count", accounts => {
+  let CountInstance
   
   before(async () => {
-     WalletInstance = await Wallet.deployed();
+     CountInstance = await Count.deployed();
   
   })
 
   it("Should deploy the contract", async () => {
-    address = WalletInstance.address
-    assert.equal(address, WalletInstance.address)
+    address = CountInstance.address
+    assert.equal(address, CountInstance.address)
   });
 
-  //Test minting Wallet tokens
-  it("Mints Wallet Tokens", async () => {
-
-
+  //Test minting Count tokens
+  it("IncrementsCount", async () => {
+    let countBefore, countAfter
+    countBefore = await CountInstance.count()
+    console.log('Count before: ', countBefore.toNumber())
+    await CountInstance.increment()
+    countAfter = await CountInstance.count()
+    console.log('Count after: ', countAfter.toNumber())
   });
 
-  it("Transfers Wallet Tokens", async () => {
-
-  });
-
-  it("Changes Price of Wallet", async () => {
-
-  });
-
-  it("Buy a Wallet Token", async () => {
-
-  });
 });
