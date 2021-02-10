@@ -95,12 +95,12 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"exchangeRateCurrent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"redeem\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"redeemUnderlying\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"supplyRatePerBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":\"cETH\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":{\"keccak256\":\"0x13f428da6af09d692fb050ddf908945157428c99f1fb2167f111785871f1b9ad\",\"urls\":[\"bzz-raw://642341868f5cd8b5a61444a0f4ac8717c2c64437b69966625a55d4b1d4966b63\",\"dweb:/ipfs/QmZcG9r2d9jnfSyekYJyvqYTXVN1PXYcnGyhHdjrGA8cc4\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"exchangeRateCurrent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"redeem\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"redeemUnderlying\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"supplyRatePerBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":\"cETH\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":{\"keccak256\":\"0x0bbd356ec1f7e6f97522ffeea52f205025024645e1e34bcdf314b9ff12d4d5d1\",\"urls\":[\"bzz-raw://34ce34015a4f1f54df5a3e5e0c4351496ad90810b9560cf2284eec6209c3eec1\",\"dweb:/ipfs/QmbuqPFzHSZUprqVNF668MQpHFYx6XtvcTeN1FQV4vCdR1\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.5.12;\r\n\r\n\r\ninterface cETH {\r\n    function mint(uint256) external returns (uint256);\r\n\r\n    function exchangeRateCurrent() external returns (uint256);\r\n\r\n    function supplyRatePerBlock() external returns (uint256);\r\n\r\n    function redeem(uint) external returns (uint);\r\n\r\n    function redeemUnderlying(uint) external returns (uint);\r\n}\r\n\r\ncontract CompoundWallet {\r\n\r\n    event MyLog(string, uint256);\r\n\r\n    function supplyETHToCompound(address _cETHContract, uint256 _numTokensToSupply) public returns (uint) {\r\n        \r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        // Amount of current exchange rate from cToken to underlying\r\n        uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();\r\n        emit MyLog(\"Exchange Rate (scaled up): \", exchangeRateMantissa);\r\n\r\n        // Amount added to you supply balance this block\r\n        uint256 supplyRateMantissa = cToken.supplyRatePerBlock();\r\n        emit MyLog(\"Supply Rate: (scaled up)\", supplyRateMantissa);\r\n\r\n        // Mint cTokens\r\n        uint mintResult = cToken.mint(_numTokensToSupply);\r\n        return mintResult;\r\n    }\r\n\r\n    function redeemcETHTokens(uint256 amount, address _cETHContract) public returns (bool) {\r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        uint256 redeemResult;\r\n\r\n        // Retrieve your asset based on a cToken amount\r\n        redeemResult = cToken.redeem(amount);\r\n    \r\n        \r\n\r\n        // Error codes are listed here:\r\n        // https://compound.finance/developers/ctokens#ctoken-error-codes\r\n        emit MyLog(\"If this is not 0, there was an error\", redeemResult);\r\n        require(redeemResult == 0, \"redeemResult error\");\r\n\r\n        return true;\r\n    }\r\n}",
+  "source": "pragma solidity ^0.5.12;\r\n\r\n\r\ninterface cETH {\r\n    function mint(uint256) external returns (uint256);\r\n\r\n    function exchangeRateCurrent() external returns (uint256);\r\n\r\n    function supplyRatePerBlock() external returns (uint256);\r\n\r\n    function redeem(uint) external returns (uint);\r\n\r\n    function redeemUnderlying(uint) external returns (uint);\r\n}\r\n\r\ncontract CompoundWallet {\r\n\r\n    event MyLog(string, uint256);\r\n\r\n    function supplyETHToCompound(address _cETHContract, uint256 _numTokensToSupply) public returns (uint) {\r\n        \r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        // Amount of current exchange rate from cToken to underlying\r\n        uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();\r\n        emit MyLog(\"Exchange Rate (scaled up): \", exchangeRateMantissa);\r\n\r\n        // Amount added to you supply balance this block\r\n        uint256 supplyRateMantissa = cToken.supplyRatePerBlock();\r\n        emit MyLog(\"Supply Rate: (scaled up)\", supplyRateMantissa);\r\n\r\n        // Mint cTokens\r\n        uint mintResult = cToken.mint(_numTokensToSupply);\r\n        return mintResult;\r\n    }\r\n\r\n    function redeemcETHTokens(uint256 amount, address _cETHContract) public returns (bool) {\r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        uint256 redeemResult;\r\n\r\n        // Retrieve your asset based on a cToken amount\r\n        redeemResult = cToken.redeem(amount);\r\n    \r\n        // Error codes are listed here:\r\n        // https://compound.finance/developers/ctokens#ctoken-error-codes\r\n        emit MyLog(\"If this is not 0, there was an error\", redeemResult);\r\n        require(redeemResult == 0, \"redeemResult error\");\r\n\r\n        return true;\r\n    }\r\n}",
   "sourcePath": "C:/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol",
   "ast": {
     "absolutePath": "/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol",
@@ -1217,7 +1217,7 @@
             "body": {
               "id": 125,
               "nodeType": "Block",
-              "src": "1293:562:0",
+              "src": "1293:550:0",
               "statements": [
                 {
                   "assignments": [
@@ -1455,7 +1455,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1711:38:0",
+                        "src": "1699:38:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_32ea112dcb61457845498aa22384476c9df97ef6cf5696f8777ea00b1e4090b1",
@@ -1470,7 +1470,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 102,
-                        "src": "1751:12:0",
+                        "src": "1739:12:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1493,7 +1493,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 39,
-                      "src": "1705:5:0",
+                      "src": "1693:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (string memory,uint256)"
@@ -1507,7 +1507,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1705:59:0",
+                    "src": "1693:59:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -1515,7 +1515,7 @@
                   },
                   "id": 115,
                   "nodeType": "EmitStatement",
-                  "src": "1700:64:0"
+                  "src": "1688:64:0"
                 },
                 {
                   "expression": {
@@ -1539,7 +1539,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 102,
-                          "src": "1783:12:0",
+                          "src": "1771:12:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1557,7 +1557,7 @@
                           "kind": "number",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "1799:1:0",
+                          "src": "1787:1:0",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_rational_0_by_1",
@@ -1565,7 +1565,7 @@
                           },
                           "value": "0"
                         },
-                        "src": "1783:17:0",
+                        "src": "1771:17:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1581,7 +1581,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1802:20:0",
+                        "src": "1790:20:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_6df5a199f579f5c28b6dae034453c10e103b439619dd87191fa069100a255398",
@@ -1609,7 +1609,7 @@
                         179
                       ],
                       "referencedDeclaration": 179,
-                      "src": "1775:7:0",
+                      "src": "1763:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
@@ -1623,7 +1623,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1775:48:0",
+                    "src": "1763:48:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -1631,7 +1631,7 @@
                   },
                   "id": 122,
                   "nodeType": "ExpressionStatement",
-                  "src": "1775:48:0"
+                  "src": "1763:48:0"
                 },
                 {
                   "expression": {
@@ -1644,7 +1644,7 @@
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "1843:4:0",
+                    "src": "1831:4:0",
                     "subdenomination": null,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -1655,7 +1655,7 @@
                   "functionReturnParameters": 94,
                   "id": 124,
                   "nodeType": "Return",
-                  "src": "1836:11:0"
+                  "src": "1824:11:0"
                 }
               ]
             },
@@ -1760,17 +1760,17 @@
               "src": "1286:6:0"
             },
             "scope": 127,
-            "src": "1206:649:0",
+            "src": "1206:637:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 128,
-        "src": "358:1500:0"
+        "src": "358:1488:0"
       }
     ],
-    "src": "0:1858:0"
+    "src": "0:1846:0"
   },
   "legacyAST": {
     "absolutePath": "/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol",
@@ -2887,7 +2887,7 @@
             "body": {
               "id": 125,
               "nodeType": "Block",
-              "src": "1293:562:0",
+              "src": "1293:550:0",
               "statements": [
                 {
                   "assignments": [
@@ -3125,7 +3125,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1711:38:0",
+                        "src": "1699:38:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_32ea112dcb61457845498aa22384476c9df97ef6cf5696f8777ea00b1e4090b1",
@@ -3140,7 +3140,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 102,
-                        "src": "1751:12:0",
+                        "src": "1739:12:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -3163,7 +3163,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 39,
-                      "src": "1705:5:0",
+                      "src": "1693:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (string memory,uint256)"
@@ -3177,7 +3177,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1705:59:0",
+                    "src": "1693:59:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -3185,7 +3185,7 @@
                   },
                   "id": 115,
                   "nodeType": "EmitStatement",
-                  "src": "1700:64:0"
+                  "src": "1688:64:0"
                 },
                 {
                   "expression": {
@@ -3209,7 +3209,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 102,
-                          "src": "1783:12:0",
+                          "src": "1771:12:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -3227,7 +3227,7 @@
                           "kind": "number",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "1799:1:0",
+                          "src": "1787:1:0",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_rational_0_by_1",
@@ -3235,7 +3235,7 @@
                           },
                           "value": "0"
                         },
-                        "src": "1783:17:0",
+                        "src": "1771:17:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -3251,7 +3251,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1802:20:0",
+                        "src": "1790:20:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_6df5a199f579f5c28b6dae034453c10e103b439619dd87191fa069100a255398",
@@ -3279,7 +3279,7 @@
                         179
                       ],
                       "referencedDeclaration": 179,
-                      "src": "1775:7:0",
+                      "src": "1763:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
@@ -3293,7 +3293,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1775:48:0",
+                    "src": "1763:48:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -3301,7 +3301,7 @@
                   },
                   "id": 122,
                   "nodeType": "ExpressionStatement",
-                  "src": "1775:48:0"
+                  "src": "1763:48:0"
                 },
                 {
                   "expression": {
@@ -3314,7 +3314,7 @@
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "1843:4:0",
+                    "src": "1831:4:0",
                     "subdenomination": null,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -3325,7 +3325,7 @@
                   "functionReturnParameters": 94,
                   "id": 124,
                   "nodeType": "Return",
-                  "src": "1836:11:0"
+                  "src": "1824:11:0"
                 }
               ]
             },
@@ -3430,17 +3430,17 @@
               "src": "1286:6:0"
             },
             "scope": 127,
-            "src": "1206:649:0",
+            "src": "1206:637:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 128,
-        "src": "358:1500:0"
+        "src": "358:1488:0"
       }
     ],
-    "src": "0:1858:0"
+    "src": "0:1846:0"
   },
   "compiler": {
     "name": "solc",
@@ -3448,7 +3448,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.20",
-  "updatedAt": "2021-02-10T01:37:25.179Z",
+  "updatedAt": "2021-02-10T01:41:24.519Z",
   "devdoc": {
     "methods": {}
   },

@@ -81,7 +81,7 @@ showNotification = () => {
 //Supply ETH to Compound
 async supplyETH(amount) {
   try {
-    this.state.contract.methods.supplyETHToCompound(this.state.cETHContract, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
+    this.state.walletContract.methods.supplyETHToCompound(this.state.cETHContract, amount).send({ from: this.state.account, value: amount }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
        this.showNotification()
 
@@ -110,7 +110,7 @@ async supplyETH(amount) {
 
 async redeemETH(amount) {
   try {
-    this.state.contract.methods.redeemcETHTokens(this.state.cETHContract, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
+    this.state.walletContract.methods.redeemcETHTokens(this.state.cETHContract, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
        this.showNotification()
 
@@ -206,10 +206,33 @@ constructor(props) {
             confirmNum={this.state.confirmNum}
           />
           <div className='row mt-1'></div>
-          <h1 className='mt-2' id='title'>Counter</h1>
-          <h1>Compound Wallet! {this.state.admin}</h1>
+          <h1 className='mt-2' id='title'>Compound Finance</h1>
         </>
         }
+        <div className='row justify-content-center'>
+          <div className='col-6'>
+            <h1>Supply ETH</h1>
+            <form className='mt-4' onSubmit={(e) => {
+              e.preventDefault()
+              let amount = this.inputAmount.value.toString()
+              this.supplyETH(amount)
+            }}>
+              <input type='number' placeholder='1 ETH' ref={(inputAmount) => { this.inputAmount = inputAmount }}/>
+              <button className='btn btn-primary'>Supply</button>
+            </form>
+          </div>
+          <div className='col-6'>
+          <h1>Redeem ETH</h1>
+            <form className='mt-4' onSubmit={(e) => {
+              e.preventDefault()
+              let amount = this.inputAmount.value.toString()
+              this.redeemETH(amount)
+            }}>
+              <input type='number' placeholder='1 ETH' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
+              <button className='btn btn-primary'>Redeem</button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

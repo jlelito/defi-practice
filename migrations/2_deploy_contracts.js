@@ -1,5 +1,5 @@
-var Count = artifacts.require("./Count.sol");
+var CompoundWallet = artifacts.require("./CompoundWallet.sol");
 
 module.exports = async function(deployer) {
-    await deployer.deploy(Count);
+    await deployer.deploy(CompoundWallet);
 };

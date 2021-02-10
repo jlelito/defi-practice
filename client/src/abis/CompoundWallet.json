@@ -73,12 +73,12 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"MyLog\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_cETHContract\",\"type\":\"address\"}],\"name\":\"redeemcETHTokens\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_cETHContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_numTokensToSupply\",\"type\":\"uint256\"}],\"name\":\"supplyETHToCompound\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":\"CompoundWallet\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":{\"keccak256\":\"0x13f428da6af09d692fb050ddf908945157428c99f1fb2167f111785871f1b9ad\",\"urls\":[\"bzz-raw://642341868f5cd8b5a61444a0f4ac8717c2c64437b69966625a55d4b1d4966b63\",\"dweb:/ipfs/QmZcG9r2d9jnfSyekYJyvqYTXVN1PXYcnGyhHdjrGA8cc4\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5061055c806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80638bb2dba61461003b578063db927591146100a1575b600080fd5b6100876004803603604081101561005157600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610103565b604051808215151515815260200191505060405180910390f35b6100ed600480360360408110156100b757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610270565b6040518082815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663db006a75866040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b15801561015e57600080fd5b505af1158015610172573d6000803e3d6000fd5b505050506040513d602081101561018857600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad81604051808060200183815260200182810382526024815260200180610504602491396040019250505060405180910390a160008114610264576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f72656465656d526573756c74206572726f72000000000000000000000000000081525060200191505060405180910390fd5b60019250505092915050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156102c057600080fd5b505af11580156102d4573d6000803e3d6000fd5b505050506040513d60208110156102ea57600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad8160405180806020018381526020018281038252601b8152602001807f45786368616e6765205261746520287363616c6564207570293a2000000000008152506020019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156103b757600080fd5b505af11580156103cb573d6000803e3d6000fd5b505050506040513d60208110156103e157600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad816040518080602001838152602001828103825260188152602001807f537570706c7920526174653a20287363616c65642075702900000000000000008152506020019250505060405180910390a160008373ffffffffffffffffffffffffffffffffffffffff1663a0712d68876040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b1580156104b957600080fd5b505af11580156104cd573d6000803e3d6000fd5b505050506040513d60208110156104e357600080fd5b81019080805190602001909291905050509050809450505050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f72a265627a7a723158203f700446094158b0deaadff2c1ed004e819011b47776af983c76e70b18b70b0c64736f6c634300050c0032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80638bb2dba61461003b578063db927591146100a1575b600080fd5b6100876004803603604081101561005157600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610103565b604051808215151515815260200191505060405180910390f35b6100ed600480360360408110156100b757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610270565b6040518082815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663db006a75866040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b15801561015e57600080fd5b505af1158015610172573d6000803e3d6000fd5b505050506040513d602081101561018857600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad81604051808060200183815260200182810382526024815260200180610504602491396040019250505060405180910390a160008114610264576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f72656465656d526573756c74206572726f72000000000000000000000000000081525060200191505060405180910390fd5b60019250505092915050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156102c057600080fd5b505af11580156102d4573d6000803e3d6000fd5b505050506040513d60208110156102ea57600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad8160405180806020018381526020018281038252601b8152602001807f45786368616e6765205261746520287363616c6564207570293a2000000000008152506020019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156103b757600080fd5b505af11580156103cb573d6000803e3d6000fd5b505050506040513d60208110156103e157600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad816040518080602001838152602001828103825260188152602001807f537570706c7920526174653a20287363616c65642075702900000000000000008152506020019250505060405180910390a160008373ffffffffffffffffffffffffffffffffffffffff1663a0712d68876040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b1580156104b957600080fd5b505af11580156104cd573d6000803e3d6000fd5b505050506040513d60208110156104e357600080fd5b81019080805190602001909291905050509050809450505050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f72a265627a7a723158203f700446094158b0deaadff2c1ed004e819011b47776af983c76e70b18b70b0c64736f6c634300050c0032",
-  "sourceMap": "358:1500:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;358:1500:0;;;;;;;",
-  "deployedSourceMap": "358:1500:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;358:1500:0;;;;;;;;;;;;;;;;;;;;;;;;1206:649;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1206:649:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;428:770;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;428:770:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1206:649;1287:4;1383:11;1402:13;1383:33;;1429:20;1534:6;:13;;;1548:6;1534:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1534:21:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1534:21:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1534:21:0;;;;;;;;;;;;;;;;1519:36;;1705:59;1751:12;1705:59;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1799:1;1783:12;:17;1775:48;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1843:4;1836:11;;;;1206:649;;;;:::o;428:770::-;524:4;630:11;649:13;630:33;;746:28;777:6;:26;;;:28;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;777:28:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;777:28:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;777:28:0;;;;;;;;;;;;;;;;746:59;;821:58;858:20;821:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;950:26;979:6;:25;;;:27;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;979:27:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;979:27:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;979:27:0;;;;;;;;;;;;;;;;950:56;;1022:53;1056:18;1022:53;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1113:15;1131:6;:11;;;1143:18;1131:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1131:31:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1131:31:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1131:31:0;;;;;;;;;;;;;;;;1113:49;;1180:10;1173:17;;;;;;428:770;;;;:::o",
-  "source": "pragma solidity ^0.5.12;\r\n\r\n\r\ninterface cETH {\r\n    function mint(uint256) external returns (uint256);\r\n\r\n    function exchangeRateCurrent() external returns (uint256);\r\n\r\n    function supplyRatePerBlock() external returns (uint256);\r\n\r\n    function redeem(uint) external returns (uint);\r\n\r\n    function redeemUnderlying(uint) external returns (uint);\r\n}\r\n\r\ncontract CompoundWallet {\r\n\r\n    event MyLog(string, uint256);\r\n\r\n    function supplyETHToCompound(address _cETHContract, uint256 _numTokensToSupply) public returns (uint) {\r\n        \r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        // Amount of current exchange rate from cToken to underlying\r\n        uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();\r\n        emit MyLog(\"Exchange Rate (scaled up): \", exchangeRateMantissa);\r\n\r\n        // Amount added to you supply balance this block\r\n        uint256 supplyRateMantissa = cToken.supplyRatePerBlock();\r\n        emit MyLog(\"Supply Rate: (scaled up)\", supplyRateMantissa);\r\n\r\n        // Mint cTokens\r\n        uint mintResult = cToken.mint(_numTokensToSupply);\r\n        return mintResult;\r\n    }\r\n\r\n    function redeemcETHTokens(uint256 amount, address _cETHContract) public returns (bool) {\r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        uint256 redeemResult;\r\n\r\n        // Retrieve your asset based on a cToken amount\r\n        redeemResult = cToken.redeem(amount);\r\n    \r\n        \r\n\r\n        // Error codes are listed here:\r\n        // https://compound.finance/developers/ctokens#ctoken-error-codes\r\n        emit MyLog(\"If this is not 0, there was an error\", redeemResult);\r\n        require(redeemResult == 0, \"redeemResult error\");\r\n\r\n        return true;\r\n    }\r\n}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"MyLog\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_cETHContract\",\"type\":\"address\"}],\"name\":\"redeemcETHTokens\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_cETHContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_numTokensToSupply\",\"type\":\"uint256\"}],\"name\":\"supplyETHToCompound\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":\"CompoundWallet\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol\":{\"keccak256\":\"0x0bbd356ec1f7e6f97522ffeea52f205025024645e1e34bcdf314b9ff12d4d5d1\",\"urls\":[\"bzz-raw://34ce34015a4f1f54df5a3e5e0c4351496ad90810b9560cf2284eec6209c3eec1\",\"dweb:/ipfs/QmbuqPFzHSZUprqVNF668MQpHFYx6XtvcTeN1FQV4vCdR1\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061055c806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80638bb2dba61461003b578063db927591146100a1575b600080fd5b6100876004803603604081101561005157600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610103565b604051808215151515815260200191505060405180910390f35b6100ed600480360360408110156100b757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610270565b6040518082815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663db006a75866040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b15801561015e57600080fd5b505af1158015610172573d6000803e3d6000fd5b505050506040513d602081101561018857600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad81604051808060200183815260200182810382526024815260200180610504602491396040019250505060405180910390a160008114610264576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f72656465656d526573756c74206572726f72000000000000000000000000000081525060200191505060405180910390fd5b60019250505092915050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156102c057600080fd5b505af11580156102d4573d6000803e3d6000fd5b505050506040513d60208110156102ea57600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad8160405180806020018381526020018281038252601b8152602001807f45786368616e6765205261746520287363616c6564207570293a2000000000008152506020019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156103b757600080fd5b505af11580156103cb573d6000803e3d6000fd5b505050506040513d60208110156103e157600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad816040518080602001838152602001828103825260188152602001807f537570706c7920526174653a20287363616c65642075702900000000000000008152506020019250505060405180910390a160008373ffffffffffffffffffffffffffffffffffffffff1663a0712d68876040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b1580156104b957600080fd5b505af11580156104cd573d6000803e3d6000fd5b505050506040513d60208110156104e357600080fd5b81019080805190602001909291905050509050809450505050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f72a265627a7a723158206f3520b08eaa4c597f09516798fb26691d1bd513df15d634638875caf1858e5564736f6c634300050c0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80638bb2dba61461003b578063db927591146100a1575b600080fd5b6100876004803603604081101561005157600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610103565b604051808215151515815260200191505060405180910390f35b6100ed600480360360408110156100b757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610270565b6040518082815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663db006a75866040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b15801561015e57600080fd5b505af1158015610172573d6000803e3d6000fd5b505050506040513d602081101561018857600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad81604051808060200183815260200182810382526024815260200180610504602491396040019250505060405180910390a160008114610264576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f72656465656d526573756c74206572726f72000000000000000000000000000081525060200191505060405180910390fd5b60019250505092915050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156102c057600080fd5b505af11580156102d4573d6000803e3d6000fd5b505050506040513d60208110156102ea57600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad8160405180806020018381526020018281038252601b8152602001807f45786368616e6765205261746520287363616c6564207570293a2000000000008152506020019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff1660e01b8152600401602060405180830381600087803b1580156103b757600080fd5b505af11580156103cb573d6000803e3d6000fd5b505050506040513d60208110156103e157600080fd5b810190808051906020019092919050505090507f8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad816040518080602001838152602001828103825260188152602001807f537570706c7920526174653a20287363616c65642075702900000000000000008152506020019250505060405180910390a160008373ffffffffffffffffffffffffffffffffffffffff1663a0712d68876040518263ffffffff1660e01b815260040180828152602001915050602060405180830381600087803b1580156104b957600080fd5b505af11580156104cd573d6000803e3d6000fd5b505050506040513d60208110156104e357600080fd5b81019080805190602001909291905050509050809450505050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f72a265627a7a723158206f3520b08eaa4c597f09516798fb26691d1bd513df15d634638875caf1858e5564736f6c634300050c0032",
+  "sourceMap": "358:1488:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;358:1488:0;;;;;;;",
+  "deployedSourceMap": "358:1488:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;358:1488:0;;;;;;;;;;;;;;;;;;;;;;;;1206:637;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1206:637:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;428:770;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;428:770:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1206:637;1287:4;1383:11;1402:13;1383:33;;1429:20;1534:6;:13;;;1548:6;1534:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1534:21:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1534:21:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1534:21:0;;;;;;;;;;;;;;;;1519:36;;1693:59;1739:12;1693:59;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1787:1;1771:12;:17;1763:48;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1831:4;1824:11;;;;1206:637;;;;:::o;428:770::-;524:4;630:11;649:13;630:33;;746:28;777:6;:26;;;:28;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;777:28:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;777:28:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;777:28:0;;;;;;;;;;;;;;;;746:59;;821:58;858:20;821:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;950:26;979:6;:25;;;:27;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;979:27:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;979:27:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;979:27:0;;;;;;;;;;;;;;;;950:56;;1022:53;1056:18;1022:53;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1113:15;1131:6;:11;;;1143:18;1131:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1131:31:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1131:31:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1131:31:0;;;;;;;;;;;;;;;;1113:49;;1180:10;1173:17;;;;;;428:770;;;;:::o",
+  "source": "pragma solidity ^0.5.12;\r\n\r\n\r\ninterface cETH {\r\n    function mint(uint256) external returns (uint256);\r\n\r\n    function exchangeRateCurrent() external returns (uint256);\r\n\r\n    function supplyRatePerBlock() external returns (uint256);\r\n\r\n    function redeem(uint) external returns (uint);\r\n\r\n    function redeemUnderlying(uint) external returns (uint);\r\n}\r\n\r\ncontract CompoundWallet {\r\n\r\n    event MyLog(string, uint256);\r\n\r\n    function supplyETHToCompound(address _cETHContract, uint256 _numTokensToSupply) public returns (uint) {\r\n        \r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        // Amount of current exchange rate from cToken to underlying\r\n        uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();\r\n        emit MyLog(\"Exchange Rate (scaled up): \", exchangeRateMantissa);\r\n\r\n        // Amount added to you supply balance this block\r\n        uint256 supplyRateMantissa = cToken.supplyRatePerBlock();\r\n        emit MyLog(\"Supply Rate: (scaled up)\", supplyRateMantissa);\r\n\r\n        // Mint cTokens\r\n        uint mintResult = cToken.mint(_numTokensToSupply);\r\n        return mintResult;\r\n    }\r\n\r\n    function redeemcETHTokens(uint256 amount, address _cETHContract) public returns (bool) {\r\n        // Create a reference to the corresponding cToken contract, like cDAI\r\n        cETH cToken = cETH(_cETHContract);\r\n\r\n        uint256 redeemResult;\r\n\r\n        // Retrieve your asset based on a cToken amount\r\n        redeemResult = cToken.redeem(amount);\r\n    \r\n        // Error codes are listed here:\r\n        // https://compound.finance/developers/ctokens#ctoken-error-codes\r\n        emit MyLog(\"If this is not 0, there was an error\", redeemResult);\r\n        require(redeemResult == 0, \"redeemResult error\");\r\n\r\n        return true;\r\n    }\r\n}",
   "sourcePath": "C:/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol",
   "ast": {
     "absolutePath": "/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol",
@@ -1195,7 +1195,7 @@
             "body": {
               "id": 125,
               "nodeType": "Block",
-              "src": "1293:562:0",
+              "src": "1293:550:0",
               "statements": [
                 {
                   "assignments": [
@@ -1433,7 +1433,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1711:38:0",
+                        "src": "1699:38:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_32ea112dcb61457845498aa22384476c9df97ef6cf5696f8777ea00b1e4090b1",
@@ -1448,7 +1448,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 102,
-                        "src": "1751:12:0",
+                        "src": "1739:12:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1471,7 +1471,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 39,
-                      "src": "1705:5:0",
+                      "src": "1693:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (string memory,uint256)"
@@ -1485,7 +1485,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1705:59:0",
+                    "src": "1693:59:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -1493,7 +1493,7 @@
                   },
                   "id": 115,
                   "nodeType": "EmitStatement",
-                  "src": "1700:64:0"
+                  "src": "1688:64:0"
                 },
                 {
                   "expression": {
@@ -1517,7 +1517,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 102,
-                          "src": "1783:12:0",
+                          "src": "1771:12:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1535,7 +1535,7 @@
                           "kind": "number",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "1799:1:0",
+                          "src": "1787:1:0",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_rational_0_by_1",
@@ -1543,7 +1543,7 @@
                           },
                           "value": "0"
                         },
-                        "src": "1783:17:0",
+                        "src": "1771:17:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1559,7 +1559,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1802:20:0",
+                        "src": "1790:20:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_6df5a199f579f5c28b6dae034453c10e103b439619dd87191fa069100a255398",
@@ -1587,7 +1587,7 @@
                         179
                       ],
                       "referencedDeclaration": 179,
-                      "src": "1775:7:0",
+                      "src": "1763:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
@@ -1601,7 +1601,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1775:48:0",
+                    "src": "1763:48:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -1609,7 +1609,7 @@
                   },
                   "id": 122,
                   "nodeType": "ExpressionStatement",
-                  "src": "1775:48:0"
+                  "src": "1763:48:0"
                 },
                 {
                   "expression": {
@@ -1622,7 +1622,7 @@
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "1843:4:0",
+                    "src": "1831:4:0",
                     "subdenomination": null,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -1633,7 +1633,7 @@
                   "functionReturnParameters": 94,
                   "id": 124,
                   "nodeType": "Return",
-                  "src": "1836:11:0"
+                  "src": "1824:11:0"
                 }
               ]
             },
@@ -1738,17 +1738,17 @@
               "src": "1286:6:0"
             },
             "scope": 127,
-            "src": "1206:649:0",
+            "src": "1206:637:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 128,
-        "src": "358:1500:0"
+        "src": "358:1488:0"
       }
     ],
-    "src": "0:1858:0"
+    "src": "0:1846:0"
   },
   "legacyAST": {
     "absolutePath": "/C/Users/jarha/Desktop/defi/compound-ropsten/contracts/CompoundWallet.sol",
@@ -2865,7 +2865,7 @@
             "body": {
               "id": 125,
               "nodeType": "Block",
-              "src": "1293:562:0",
+              "src": "1293:550:0",
               "statements": [
                 {
                   "assignments": [
@@ -3103,7 +3103,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1711:38:0",
+                        "src": "1699:38:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_32ea112dcb61457845498aa22384476c9df97ef6cf5696f8777ea00b1e4090b1",
@@ -3118,7 +3118,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 102,
-                        "src": "1751:12:0",
+                        "src": "1739:12:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -3141,7 +3141,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 39,
-                      "src": "1705:5:0",
+                      "src": "1693:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (string memory,uint256)"
@@ -3155,7 +3155,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1705:59:0",
+                    "src": "1693:59:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -3163,7 +3163,7 @@
                   },
                   "id": 115,
                   "nodeType": "EmitStatement",
-                  "src": "1700:64:0"
+                  "src": "1688:64:0"
                 },
                 {
                   "expression": {
@@ -3187,7 +3187,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 102,
-                          "src": "1783:12:0",
+                          "src": "1771:12:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -3205,7 +3205,7 @@
                           "kind": "number",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "1799:1:0",
+                          "src": "1787:1:0",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_rational_0_by_1",
@@ -3213,7 +3213,7 @@
                           },
                           "value": "0"
                         },
-                        "src": "1783:17:0",
+                        "src": "1771:17:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -3229,7 +3229,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1802:20:0",
+                        "src": "1790:20:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_6df5a199f579f5c28b6dae034453c10e103b439619dd87191fa069100a255398",
@@ -3257,7 +3257,7 @@
                         179
                       ],
                       "referencedDeclaration": 179,
-                      "src": "1775:7:0",
+                      "src": "1763:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
@@ -3271,7 +3271,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1775:48:0",
+                    "src": "1763:48:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
@@ -3279,7 +3279,7 @@
                   },
                   "id": 122,
                   "nodeType": "ExpressionStatement",
-                  "src": "1775:48:0"
+                  "src": "1763:48:0"
                 },
                 {
                   "expression": {
@@ -3292,7 +3292,7 @@
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "1843:4:0",
+                    "src": "1831:4:0",
                     "subdenomination": null,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -3303,7 +3303,7 @@
                   "functionReturnParameters": 94,
                   "id": 124,
                   "nodeType": "Return",
-                  "src": "1836:11:0"
+                  "src": "1824:11:0"
                 }
               ]
             },
@@ -3408,25 +3408,54 @@
               "src": "1286:6:0"
             },
             "scope": 127,
-            "src": "1206:649:0",
+            "src": "1206:637:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 128,
-        "src": "358:1500:0"
+        "src": "358:1488:0"
       }
     ],
-    "src": "0:1858:0"
+    "src": "0:1846:0"
   },
   "compiler": {
     "name": "solc",
     "version": "0.5.12+commit.7709ece9.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "3": {
+      "events": {
+        "0x8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "MyLog",
+          "type": "event",
+          "signature": "0x8d1cced004452bd270777a8c670f9f7e7c4fdde56f2db331fe289d39dc2624ad"
+        }
+      },
+      "links": {},
+      "address": "0x315A5F0d705a7C6d26e42332f907FA55ACDE1655",
+      "transactionHash": "0x5ba79af442c9e3e4646aa47dc997fe1f17b29b57ec270896adc6e21341a084c2"
+    }
+  },
   "schemaVersion": "3.0.20",
-  "updatedAt": "2021-02-10T01:37:25.174Z",
+  "updatedAt": "2021-02-10T01:43:46.234Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
