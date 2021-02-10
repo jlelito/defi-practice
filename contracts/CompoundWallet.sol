@@ -1,14 +1,7 @@
 pragma solidity ^0.5.12;
 
 
-interface Erc20 {
-    function approve(address, uint256) external returns (bool);
-
-    function transfer(address, uint256) external returns (bool);
-}
-
-
-interface CErc20 {
+interface cETH {
     function mint(uint256) external returns (uint256);
 
     function exchangeRateCurrent() external returns (uint256);
@@ -21,16 +14,13 @@ interface CErc20 {
 }
 
 contract CompoundWallet {
+
     event MyLog(string, uint256);
 
-    // omitting some code here...
-
-    function supplyErc20ToCompound(address _erc20Contract, address _cErc20Contract,uint256 _numTokensToSupply) public returns (uint) {
-        // Create a reference to the underlying asset contract, like DAI.
-        Erc20 underlying = Erc20(_erc20Contract);
-
+    function supplyETHToCompound(address _cETHContract, uint256 _numTokensToSupply) public returns (uint) {
+        
         // Create a reference to the corresponding cToken contract, like cDAI
-        CErc20 cToken = CErc20(_cErc20Contract);
+        cETH cToken = cETH(_cETHContract);
 
         // Amount of current exchange rate from cToken to underlying
         uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();
@@ -40,29 +30,21 @@ contract CompoundWallet {
         uint256 supplyRateMantissa = cToken.supplyRatePerBlock();
         emit MyLog("Supply Rate: (scaled up)", supplyRateMantissa);
 
-        // Approve transfer on the ERC20 contract
-        underlying.approve(_cErc20Contract, _numTokensToSupply);
-
         // Mint cTokens
         uint mintResult = cToken.mint(_numTokensToSupply);
         return mintResult;
     }
 
-    function redeemCErc20Tokens(uint256 amount, bool redeemType, address _cErc20Contract) public returns (bool) {
+    function redeemcETHTokens(uint256 amount, bool redeemType, address _cETHContract) public returns (bool) {
         // Create a reference to the corresponding cToken contract, like cDAI
-        CErc20 cToken = CErc20(_cErc20Contract);
-
-        // `amount` is scaled up by 1e18 to avoid decimals
+        cETH cToken = cETH(_cETHContract);
 
         uint256 redeemResult;
 
-        if (redeemType == true) {
-            // Retrieve your asset based on a cToken amount
-            redeemResult = cToken.redeem(amount);
-        } else {
-            // Retrieve your asset based on an amount of the asset
-            redeemResult = cToken.redeemUnderlying(amount);
-        }
+        // Retrieve your asset based on a cToken amount
+        redeemResult = cToken.redeem(amount);
+    
+        
 
         // Error codes are listed here:
         // https://compound.finance/developers/ctokens#ctoken-error-codes
