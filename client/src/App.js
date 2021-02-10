@@ -2,10 +2,11 @@ import './App.css';
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import Navbar from './components/Navbar.js';
-import Count from './abis/Count.json';
 import Notification from './components/Notification.js';
 import Loading from './components/Loading.js';
 import ConnectionBanner from '@rimble/connection-banner';
+import CompoundWallet from './abis/CompoundWallet.json';
+import cETH from './abis/cETHRopstenABI.json';
 
 class App extends Component {
 
@@ -52,23 +53,23 @@ async loadAccountData() {
 
 //Loads the data of the smart-contract
 async loadContractData() {
-  let contractAdmin
-  let CountData = Count.networks[5777]
-  if(CountData) {
+  let WalletData = CompoundWallet.networks[3]
+  if(WalletData) {
     
-    const abi = Count.abi
-    const address = CountData.address
+    const abi = CompoundWallet.abi
+    const address = WalletData.address
     //Load contract and set state
-    const tokenContract = new this.state.web3.eth.Contract(abi, address)
-    await this.setState({ contract : tokenContract })
-    console.log('Count contract:', this.state.contract)
-    console.log('Getting admin')
-    contractAdmin = await this.state.contract.methods.admin().call()
-    console.log('Admin:', contractAdmin)
-    this.setState({  admin: contractAdmin })
-    let count = await this.state.contract.methods.count().call()
-    this.setState({count})
+    const walletContract = new this.state.web3.eth.Contract(abi, address)
+    await this.setState({ walletContract })
+    console.log('Wallet contract: ', this.state.walletContract)
   }
+
+  //Compound Ropsten address located here: https://compound.finance/docs#networks
+  const compoundCETHContractAddress = '0xbe839b6d93e3ea47effcca1f27841c917a8794f3'
+  const cETHContract = new this.state.web3.eth.Contract(cETH, compoundCETHContractAddress)
+  await this.setState({cETHContract})
+  console.log('cEth contract:', this.state.cETHContract)
+
 
 }
 
@@ -77,11 +78,40 @@ showNotification = () => {
   this.notificationOne.current.updateShowNotify()
 }
 
-//Increments the Count
-async increment() {
+//Supply ETH to Compound
+async supplyETH(amount) {
   try {
-    this.state.contract.methods.increment().send({ from: this.state.account }).on('transactionHash', async (hash) => {
-       this.setState({hash: hash, action: 'Count Incremented', trxStatus: 'Pending'})
+    this.state.contract.methods.supplyETHToCompound(this.state.cETHContract, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
+       this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
+       this.showNotification()
+
+      }).on('receipt', async (receipt) => {
+          await this.loadContractData()
+          if(receipt.status === true){
+            this.setState({trxStatus: 'Success'})
+          }
+          else if(receipt.status === false){
+            this.setState({trxStatus: 'Failed'})
+          }
+      }).on('error', (error) => {
+          window.alert('Error! Could not increment!')
+      }).on('confirmation', (confirmNum) => {
+          if(confirmNum > 10) {
+            this.setState({confirmNum : '10+'})
+          } else {
+          this.setState({confirmNum})
+          }
+      })
+    }
+    catch(e) {
+      window.alert(e)
+    }
+}
+
+async redeemETH(amount) {
+  try {
+    this.state.contract.methods.redeemcETHTokens(this.state.cETHContract, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
+       this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
        this.showNotification()
 
       }).on('receipt', async (receipt) => {
@@ -118,8 +148,8 @@ constructor(props) {
     wrongNetwork: false,
     loading: false,
     isConnected: null,
-    contract: {},
-    count: null,
+    walletContract: {},
+    cETHContract: null,
     currentEthBalance: '0',
     hash: '0x0',
     action: null,
@@ -177,9 +207,7 @@ constructor(props) {
           />
           <div className='row mt-1'></div>
           <h1 className='mt-2' id='title'>Counter</h1>
-          <h1>Admin: {this.state.admin}</h1>
-          <h2>Count: {this.state.count} </h2>
-          <button onClick={() => this.increment()}>Increment</button>
+          <h1>Compound Wallet! {this.state.admin}</h1>
         </>
         }
       </div>

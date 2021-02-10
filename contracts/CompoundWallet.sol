@@ -35,7 +35,7 @@ contract CompoundWallet {
         return mintResult;
     }
 
-    function redeemcETHTokens(uint256 amount, bool redeemType, address _cETHContract) public returns (bool) {
+    function redeemcETHTokens(uint256 amount, address _cETHContract) public returns (bool) {
         // Create a reference to the corresponding cToken contract, like cDAI
         cETH cToken = cETH(_cETHContract);
 
@@ -44,8 +44,6 @@ contract CompoundWallet {
         // Retrieve your asset based on a cToken amount
         redeemResult = cToken.redeem(amount);
     
-        
-
         // Error codes are listed here:
         // https://compound.finance/developers/ctokens#ctoken-error-codes
         emit MyLog("If this is not 0, there was an error", redeemResult);
