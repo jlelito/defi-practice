@@ -69,6 +69,13 @@ async loadContractData() {
   const cETHContract = new this.state.web3.eth.Contract(cETH, compoundCETHContractAddress)
   await this.setState({cETHContract})
   console.log('cEth contract:', this.state.cETHContract)
+  let cETHBalance = await this.state.cETHContract.methods.balanceOf(WalletData.address).call()
+  let contractETHBal = await this.state.web3.eth.getBalance(WalletData.address)
+  console.log('ETH Balance:', contractETHBal)
+  console.log('cETH Balance:', cETHBalance)
+  console.log('Wallet Address:', WalletData.address)
+  console.log('cETH Address:', this.state.cETHAddress)
+  this.setState({cETHBalance, contractETHBal})
 
 
 }
@@ -80,8 +87,10 @@ showNotification = () => {
 
 //Supply ETH to Compound
 async supplyETH(amount) {
+  console.log('Amount Input:', amount)
+  console.log('Supply ETH to Contract: ', this.state.cETHAddress)
   try {
-    this.state.walletContract.methods.supplyETHToCompound(this.state.cETHContract, amount).send({ from: this.state.account, value: amount }).on('transactionHash', async (hash) => {
+    this.state.walletContract.methods.supplyEthToCompound(this.state.cETHAddress).send({ from: this.state.account, value: this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))}).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
        this.showNotification()
 
@@ -94,7 +103,7 @@ async supplyETH(amount) {
             this.setState({trxStatus: 'Failed'})
           }
       }).on('error', (error) => {
-          window.alert('Error! Could not increment!')
+          window.alert('Error! Could not Supply ETH!')
       }).on('confirmation', (confirmNum) => {
           if(confirmNum > 10) {
             this.setState({confirmNum : '10+'})
@@ -109,8 +118,9 @@ async supplyETH(amount) {
 }
 
 async redeemETH(amount) {
+  amount = this.state.web3.utils.toHex(amount)
   try {
-    this.state.walletContract.methods.redeemcETHTokens(this.state.cETHContract, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
+    this.state.walletContract.methods.redeemcETHTokens(amount, this.state.cETHAddress).send({ from: this.state.account }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
        this.showNotification()
 
@@ -123,7 +133,7 @@ async redeemETH(amount) {
             this.setState({trxStatus: 'Failed'})
           }
       }).on('error', (error) => {
-          window.alert('Error! Could not increment!')
+          window.alert('Error! Could not Redeem ETH!')
       }).on('confirmation', (confirmNum) => {
           if(confirmNum > 10) {
             this.setState({confirmNum : '10+'})
@@ -150,6 +160,8 @@ constructor(props) {
     isConnected: null,
     walletContract: {},
     cETHContract: null,
+    cETHBalance: null,
+    cETHAddress: '0xbe839b6d93e3ea47effcca1f27841c917a8794f3',
     currentEthBalance: '0',
     hash: '0x0',
     action: null,
@@ -205,34 +217,46 @@ constructor(props) {
             trxStatus={this.state.trxStatus}
             confirmNum={this.state.confirmNum}
           />
-          <div className='row mt-1'></div>
           <h1 className='mt-2' id='title'>Compound Finance</h1>
+          <h3>Contract ETH Balance: {this.state.contractETHBal}</h3>
+          <h3>Contract cETH Balance: {this.state.cETHBalance} </h3>
+          <div className='row justify-content-center mt-4'>
+            <h3>Send ETH to Contract</h3>
+          </div>
+          <div className='row justify-content-center'>
+            <div className='col-6'>
+              <h1>Supply ETH</h1>
+              <form className='mt-4' onSubmit={(e) => {
+                let amount
+                e.preventDefault()
+                amount = this.supplyAmount.value.toString()
+                console.log('Amount in Form:', amount)
+                this.supplyAmount.value = null
+                this.supplyETH(amount)
+              }}>
+                <input type='number' placeholder='1 ETH' step='.01' ref={(supplyAmount) => { this.supplyAmount = supplyAmount }} required/>
+                <button className='btn btn-primary'>Supply</button>
+              </form>
+            </div>
+            <div className='col-6'>
+              <h1>Redeem ETH</h1>
+              <form className='mt-4' onSubmit={(e) => {
+                e.preventDefault()
+                let amount = this.inputAmount.value.toString()
+                this.redeemETH(amount)
+              }}>
+                <input type='number' placeholder='1 ETH' step='.01' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
+                <button className='btn btn-primary'>Redeem</button>
+              </form>
+            </div>
+          </div>
+          <div className='row justify-content-center mt-4'>
+            Contract on Etherscan: 
+            <a className='ml-3' href='https://ropsten.etherscan.io/address/0x37EcbeF1E977D86d9c931501D0dC87cC348d860C' target='_blank'>Etherscan</a>
+          </div>
         </>
         }
-        <div className='row justify-content-center'>
-          <div className='col-6'>
-            <h1>Supply ETH</h1>
-            <form className='mt-4' onSubmit={(e) => {
-              e.preventDefault()
-              let amount = this.inputAmount.value.toString()
-              this.supplyETH(amount)
-            }}>
-              <input type='number' placeholder='1 ETH' ref={(inputAmount) => { this.inputAmount = inputAmount }}/>
-              <button className='btn btn-primary'>Supply</button>
-            </form>
-          </div>
-          <div className='col-6'>
-          <h1>Redeem ETH</h1>
-            <form className='mt-4' onSubmit={(e) => {
-              e.preventDefault()
-              let amount = this.inputAmount.value.toString()
-              this.redeemETH(amount)
-            }}>
-              <input type='number' placeholder='1 ETH' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
-              <button className='btn btn-primary'>Redeem</button>
-            </form>
-          </div>
-        </div>
+        
       </div>
     );
   }
