@@ -7,6 +7,7 @@ import Loading from './components/Loading.js';
 import ConnectionBanner from '@rimble/connection-banner';
 import CompoundWallet from './abis/CompoundWallet.json';
 import cETH from './abis/cETHRopstenABI.json';
+import complogo from './src_images/compound-logo.png';
 
 class App extends Component {
 
@@ -133,7 +134,7 @@ async supplyETH(amount) {
 }
 
 async redeemETH(amount) {
-  amount = this.state.web3.utils.toHex(amount)
+  amount = this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))
   try {
     this.state.walletContract.methods.redeemcETHTokens(amount, this.state.cETHAddress).send({ from: this.state.account }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
@@ -234,8 +235,11 @@ constructor(props) {
             trxStatus={this.state.trxStatus}
             confirmNum={this.state.confirmNum}
           />
-          <h1 className='mt-2' id='title'>Compound Finance</h1>
-          <h3>Contract ETH Balance: {this.state.contractETHBal}</h3>
+          <div className='row justify-content-center'>
+            <h1 className='mt-2' id='title'>Compound Finance</h1>
+            <img src={complogo} height='50px' width = '50px' className='mt-2'/>
+          </div>
+          <h3 className='mt-5'>Contract ETH Balance: {this.state.contractETHBal}</h3>
           <h3>Contract cETH Balance: {this.state.cETHBalance} </h3>
           <div className='row justify-content-center mt-4'>
             <h3>Send ETH to Contract</h3>
