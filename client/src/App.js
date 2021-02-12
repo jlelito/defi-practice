@@ -60,7 +60,7 @@ async loadContractData() {
     const address = WalletData.address
     //Load contract and set state
     const walletContract = new this.state.web3.eth.Contract(abi, address)
-    await this.setState({ walletContract })
+    await this.setState({ walletContract, walletContractAddress: address })
     console.log('Wallet contract: ', this.state.walletContract)
   }
 
@@ -70,15 +70,25 @@ async loadContractData() {
   await this.setState({cETHContract})
   console.log('cEth contract:', this.state.cETHContract)
   let cETHBalance = await this.state.cETHContract.methods.balanceOf(WalletData.address).call()
+  try{
+  let mycETHBalance = await this.state.cETHContract.methods.balanceOf(this.state.account).call()
+  console.log('My cETH Balance: ', mycETHBalance)
+  } catch(e){
+    console.log(e)
+  }
   let contractETHBal = await this.state.web3.eth.getBalance(WalletData.address)
-  console.log('ETH Balance:', contractETHBal)
-  console.log('cETH Balance:', cETHBalance)
+  console.log('Wallet Contract ETH Balance:', contractETHBal)
+  console.log('Wallet Contract cETH Balance:', cETHBalance)
   console.log('Wallet Address:', WalletData.address)
   console.log('cETH Address:', this.state.cETHAddress)
   this.setState({cETHBalance, contractETHBal})
+  
 
 
 }
+
+//Expected Compound Bal for .001 ETH deposit: 4738394
+
 
 //Shows notification
 showNotification = () => {
@@ -89,10 +99,15 @@ showNotification = () => {
 async supplyETH(amount) {
   console.log('Amount Input:', amount)
   console.log('Supply ETH to Contract: ', this.state.cETHAddress)
+  amount = this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))
   try {
-    this.state.walletContract.methods.supplyEthToCompound(this.state.cETHAddress).send({ from: this.state.account, value: this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))}).on('transactionHash', async (hash) => {
+    this.state.walletContract.methods.supplyEthToCompound(this.state.cETHAddress).send({ from: this.state.account, value: amount}).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
        this.showNotification()
+
+       this.state.walletContract.events.MyLog({}, async (error, event) => {
+        console.log('My Log: ', event)
+      })
 
       }).on('receipt', async (receipt) => {
           await this.loadContractData()
@@ -159,6 +174,7 @@ constructor(props) {
     loading: false,
     isConnected: null,
     walletContract: {},
+    walletContractAddress: null,
     cETHContract: null,
     cETHBalance: null,
     cETHAddress: '0xbe839b6d93e3ea47effcca1f27841c917a8794f3',
@@ -195,6 +211,7 @@ constructor(props) {
           balance={this.state.currentEthBalance}
           network={this.state.network}
           isConnected={this.state.isConnected}
+          trxStatus={this.state.trxStatus}
         />
         <div className='mt-5' />
         {window.ethereum === null ?
@@ -234,7 +251,7 @@ constructor(props) {
                 this.supplyAmount.value = null
                 this.supplyETH(amount)
               }}>
-                <input type='number' placeholder='1 ETH' step='.01' ref={(supplyAmount) => { this.supplyAmount = supplyAmount }} required/>
+                <input type='number' placeholder='1 ETH' step='.001' ref={(supplyAmount) => { this.supplyAmount = supplyAmount }} required/>
                 <button className='btn btn-primary'>Supply</button>
               </form>
             </div>
@@ -245,14 +262,14 @@ constructor(props) {
                 let amount = this.inputAmount.value.toString()
                 this.redeemETH(amount)
               }}>
-                <input type='number' placeholder='1 ETH' step='.01' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
+                <input type='number' placeholder='1 ETH' step='.001' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
                 <button className='btn btn-primary'>Redeem</button>
               </form>
             </div>
           </div>
           <div className='row justify-content-center mt-4'>
             Contract on Etherscan: 
-            <a className='ml-3' href='https://ropsten.etherscan.io/address/0x37EcbeF1E977D86d9c931501D0dC87cC348d860C' target='_blank'>Etherscan</a>
+            <a className='ml-3' href={`https://ropsten.etherscan.io/address/${this.state.walletContractAddress}`} target='_blank'>Etherscan</a>
           </div>
         </>
         }
