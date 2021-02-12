@@ -5,6 +5,8 @@ import coloreth from '../src_images/eth-diamond-rainbow.png';
 import 'react-bootstrap';
 import  { Pill }  from '../../node_modules/rimble-ui';
 import AccountModal from './AccountModal.js';
+import Loader from 'react-loader-spinner';
+
 
 
 class Navbar extends Component {
@@ -60,6 +62,16 @@ class Navbar extends Component {
                   src={`data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`}
                   alt='identicon'
                 />
+                {this.props.trxStatus === 'Pending' ? 
+                  <Loader     
+                    type='Oval'
+                    color='#00BFFF'
+                    height={25}
+                    width={25}
+                    className='mt-2'
+                  /> 
+                : null}
+                
                 <div className='text-white mx-2 my-2'>Ropsten Faucet: <a href='https://faucet.ropsten.be/' target='_blank' rel='noopener noreferrer'>Faucet</a></div>
               </> 
               : 
