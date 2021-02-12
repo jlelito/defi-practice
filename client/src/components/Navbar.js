@@ -23,7 +23,7 @@ class Navbar extends Component {
           rel='noopener noreferrer'
         >
           <img src={coloreth} width='20' height='30' className='d-inline-block align-top mr-2' alt='rainbow eth logo' />
-          Example Title
+          Compound Interest
         </div>
         <ul className='navbar-nav px-3'>
           <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
