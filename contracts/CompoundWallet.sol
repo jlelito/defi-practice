@@ -17,11 +17,19 @@ contract CompoundWallet {
 
     event MyLog(string, uint256);
 
-    function supplyEthToCompound(address payable _cEtherContract)public payable returns (bool) {
+    function supplyEthToCompound(address payable _cEtherContract) public payable returns (bool) {
         // Create a reference to the corresponding cToken contract
         cETH cToken = cETH(_cEtherContract);
 
-        cToken.mint.value(msg.value).gas(250000);
+        // Amount of current exchange rate from cToken to underlying
+        uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();
+        emit MyLog("Exchange Rate (scaled up by 1e18): ", exchangeRateMantissa);
+
+        // Amount added to you supply balance this block
+        uint256 supplyRateMantissa = cToken.supplyRatePerBlock();
+        emit MyLog("Supply Rate: (scaled up by 1e18)", supplyRateMantissa);
+
+        cToken.mint.value(msg.value).gas(25000000);
         return true;
     }
 
@@ -40,6 +48,15 @@ contract CompoundWallet {
 
         return true;
     }
+
+    function supplyEthFromContract(address payable _cEtherContract, uint amount) public returns (bool) {
+        // Create a reference to the corresponding cToken contract
+        cETH cToken = cETH(_cEtherContract);
+
+        cToken.mint.value(amount).gas(25000000);
+        return true;
+    }
+
 
     // This is needed to receive ETH when calling `redeemCEth`
     function() external payable {}
