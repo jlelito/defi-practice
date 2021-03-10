@@ -10,8 +10,7 @@ import cETH from './abis/cETHRopstenABI.json';
 import complogo from './src_images/compound-logo.png';
 import smartcontract from './src_images/smart-contract.png';
 import wallet from './src_images/wallet.png';
-
-
+require('dotenv').config();
 
 class App extends Component {
 
@@ -29,7 +28,7 @@ async loadBlockchainData() {
     await this.setState({web3})
     await this.loadAccountData()
   } else {
-    web3 = new Web3(new Web3.providers.HttpProvider(`https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`))
+    web3 = new Web3(new Web3.providers.HttpProvider(`https://ropsten.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`))
     await this.setState({web3})
   }
   this.loadContractData()
@@ -50,9 +49,12 @@ async loadAccountData() {
 
   const networkId = await web3.eth.net.getId()
   this.setState({network: networkId})
+  console.log('network:', this.state.network)
 
   if(this.state.network !== 3) {
     this.setState({wrongNetwork: true})
+    web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/785d9e20620649329504edaeaf60fb72'))
+    await this.setState({web3})
   }
 }
 
@@ -60,21 +62,23 @@ async loadAccountData() {
 async loadContractData() {
   let WalletData = CompoundWallet.networks[3]
   if(WalletData) {
-    
+    //Load wallet contract and set state
     const abi = CompoundWallet.abi
     const address = WalletData.address
-    //Load contract and set state
     const walletContract = new this.state.web3.eth.Contract(abi, address)
     await this.setState({ walletContract, walletContractAddress: address })
     console.log('Wallet contract: ', this.state.walletContract)
   }
 
   //Compound Ropsten address located here: https://compound.finance/docs#networks
-  const compoundCETHContractAddress = '0xbe839b6d93e3ea47effcca1f27841c917a8794f3'
+  const compoundCETHContractAddress = '0x859e9d8a4edadfedb5a2ff311243af80f85a91b8'
   const cETHContract = new this.state.web3.eth.Contract(cETH, compoundCETHContractAddress)
-  await this.setState({cETHContract})
+  await this.setState({cETHContract, cETHAddress: compoundCETHContractAddress})
+
+  //Check cETH Balances
   console.log('cEth contract:', this.state.cETHContract)
   let cETHBalance = await this.state.cETHContract.methods.balanceOf(WalletData.address).call()
+  console.log('cETH Balance after calling: ', cETHBalance)
   try {
     let mycETHBalance = await this.state.cETHContract.methods.balanceOf(this.state.account).call()
     console.log('My cETH Balance: ', mycETHBalance)
@@ -90,8 +94,6 @@ async loadContractData() {
   console.log('cETH Address:', this.state.cETHAddress)
   this.setState({cETHBalance, contractETHBal})
   
-
-
 }
 
 //Expected Compound Bal for .001 ETH deposit: 4738394
@@ -170,7 +172,9 @@ async contractRedeemETH(amount) {
 }
 
 async supplyETHFromContract(amount) {
+  console.log('Supplying Amount:', amount)
   amount = this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))
+  console.log('Supplying Address:', this.state.cETHAddress)
   try {
     this.state.walletContract.methods.supplyEthFromContract(this.state.cETHAddress, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
@@ -232,7 +236,9 @@ async walletSupplyETH(amount) {
 }
 
 async walletRedeemETH(amount) {
+  console.log('Amount Redeemed from wallet: ', amount)
   amount = this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))
+  console.log('Amount Redeemed from wallet: ', amount)
   try {
     this.state.cETHContract.methods.redeemUnderlying(amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Redeemed ETH from Wallet', trxStatus: 'Pending'})
@@ -276,7 +282,7 @@ constructor(props) {
     walletContractAddress: null,
     cETHContract: null,
     cETHBalance: null,
-    cETHAddress: '0xbe839b6d93e3ea47effcca1f27841c917a8794f3',
+    cETHAddress: null,
     currentEthBalance: '0',
     hash: '0x0',
     action: null,
@@ -369,6 +375,7 @@ constructor(props) {
               <form className='mt-4' onSubmit={(e) => {
                 e.preventDefault()
                 let amount = this.inputAmount.value.toString()
+                this.inputAmount.value = null
                 this.contractRedeemETH(amount)
               }}>
                 <input type='number' placeholder='1 ETH' step='.001' min='0' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
@@ -380,6 +387,7 @@ constructor(props) {
               <form className='mt-4' onSubmit={(e) => {
                     e.preventDefault()
                     let amount = this.inputAmount.value.toString()
+                    this.inputAmount.value =  null
                     this.supplyETHFromContract(amount)
                   }}>
                     <input type='number' placeholder='1 ETH' step='.001' min='0' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
@@ -398,6 +406,7 @@ constructor(props) {
               <form className='mt-4' onSubmit={(e) => {
                     e.preventDefault()
                     let amount = this.supplyFromWalletAmount.value.toString()
+                    this.supplyFromWalletAmount.value = null
                     this.walletSupplyETH(amount)
                   }}>
                     <input type='number' placeholder='1 ETH' step='.001' min='0' ref={(supplyFromWalletAmount) => { this.supplyFromWalletAmount = supplyFromWalletAmount }} required/>
@@ -408,11 +417,12 @@ constructor(props) {
             <h3>Redeem ETH with Wallet</h3>
               <form className='mt-4' onSubmit={(e) => {
                     e.preventDefault()
-                    let amount = this.inputAmount.value.toString()
+                    let amount = this.redeemFromWalletAmount.value.toString()
+                    this.redeemFromWalletAmount.value = null
                     this.walletRedeemETH(amount)
                   }}>
-                    <input type='number' placeholder='1 ETH' step='.001' min='0' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
-                    <button className='btn btn-primary'>Supply</button>
+                    <input type='number' placeholder='1 ETH' step='.001' min='0' ref={(redeemFromWalletAmount) => { this.redeemFromWalletAmount = redeemFromWalletAmount }} required/>
+                    <button className='btn btn-primary'>Redeem</button>
               </form>
             </div>
           </div>
