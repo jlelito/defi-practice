@@ -27,6 +27,17 @@ module.exports = {
       network_id: 3
     },
 
+    rinkeby: {
+      provider: function() {
+        return new HDWalletProvider(
+          process.env.MNEMONIC,
+          `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`
+          )
+      },
+      gasPrice: 100000000000,
+      network_id: 4
+    },
+
     
   },
   
