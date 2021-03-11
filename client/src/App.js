@@ -141,10 +141,10 @@ async contractSupplyETH(amount) {
     }
 }
 
-async contractRedeemETH(amount) {
+async contractRedeemETH(amount, redeemType) {
   amount = this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))
   try {
-    this.state.walletContract.methods.redeemcETHTokens(amount, this.state.cETHAddress).send({ from: this.state.account }).on('transactionHash', async (hash) => {
+    this.state.walletContract.methods.redeemcETHTokens(amount, redeemType, this.state.cETHAddress).send({ from: this.state.account }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Redeemed ETH with Contract', trxStatus: 'Pending'})
        this.showNotification()
 
@@ -171,37 +171,6 @@ async contractRedeemETH(amount) {
     }
 }
 
-async supplyETHFromContract(amount) {
-  console.log('Supplying Amount:', amount)
-  amount = this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))
-  console.log('Supplying Address:', this.state.cETHAddress)
-  try {
-    this.state.walletContract.methods.supplyEthFromContract(this.state.cETHAddress, amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
-       this.setState({hash: hash, action: 'Supplied ETH', trxStatus: 'Pending'})
-       this.showNotification()
-
-      }).on('receipt', async (receipt) => {
-          await this.loadContractData()
-          if(receipt.status === true){
-            this.setState({trxStatus: 'Success'})
-          }
-          else if(receipt.status === false){
-            this.setState({trxStatus: 'Failed'})
-          }
-      }).on('error', (error) => {
-          window.alert('Error! Could not Redeem ETH!')
-      }).on('confirmation', (confirmNum) => {
-          if(confirmNum > 10) {
-            this.setState({confirmNum : '10+'})
-          } else {
-          this.setState({confirmNum})
-          }
-      })
-    }
-    catch(e) {
-      window.alert(e)
-    }
-}
 
 async walletSupplyETH(amount) {
   console.log('Amount supplied from wallet: ', amount)
@@ -242,6 +211,36 @@ async walletRedeemETH(amount) {
   try {
     this.state.cETHContract.methods.redeemUnderlying(amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
        this.setState({hash: hash, action: 'Redeemed ETH from Wallet', trxStatus: 'Pending'})
+       this.showNotification()
+
+      }).on('receipt', async (receipt) => {
+          await this.loadContractData()
+          if(receipt.status === true){
+            this.setState({trxStatus: 'Success'})
+          }
+          else if(receipt.status === false){
+            this.setState({trxStatus: 'Failed'})
+          }
+      }).on('error', (error) => {
+          window.alert('Error! Could not Redeem ETH!')
+      }).on('confirmation', (confirmNum) => {
+          if(confirmNum > 10) {
+            this.setState({confirmNum : '10+'})
+          } else {
+          this.setState({confirmNum})
+          }
+      })
+    }
+    catch(e) {
+      window.alert(e)
+    }
+}
+
+async withdrawETH(amount) {
+  amount = this.state.web3.utils.toHex(this.state.web3.utils.toWei(amount, 'ether'))
+  try {
+    this.state.walletContract.methods.withdrawETH(amount).send({ from: this.state.account }).on('transactionHash', async (hash) => {
+       this.setState({hash: hash, action: 'Withdrawed ETH from Wallet', trxStatus: 'Pending'})
        this.showNotification()
 
       }).on('receipt', async (receipt) => {
@@ -351,7 +350,7 @@ constructor(props) {
             </div>
           </div>
           <div className='row justify-content-center mt-5 mb-4'>
-            <h1>Use Contract to Interact Compound</h1>
+            <h1>Use Contract to Interact with Compound</h1>
             <img src={smartcontract} className='mt-2' height='35px' width='55px' />
           </div>
           
@@ -376,28 +375,33 @@ constructor(props) {
                 e.preventDefault()
                 let amount = this.inputAmount.value.toString()
                 this.inputAmount.value = null
-                this.contractRedeemETH(amount)
+                this.contractRedeemETH(amount, false)
               }}>
                 <input type='number' placeholder='1 ETH' step='.001' min='0' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
                 <button className='btn btn-primary'>Redeem</button>
               </form>
             </div>
-            <div className='col-auto'>
-            <h3>Supply ETH Contract (internal function)</h3>
+          </div>
+
+          <div className='row justify-content-center'>
+            <div className='col-auto mt-3'>
+            <h3>Withdraw ETH from Wallet</h3>
+            <label>ETH in Wallet: {this.state.contractETHBal}</label>
               <form className='mt-4' onSubmit={(e) => {
                     e.preventDefault()
-                    let amount = this.inputAmount.value.toString()
-                    this.inputAmount.value =  null
-                    this.supplyETHFromContract(amount)
+                    let amount = this.withdrawAmount.value.toString()
+                    this.withdrawAmount.value = null
+                    this.withdrawETH(amount)
                   }}>
-                    <input type='number' placeholder='1 ETH' step='.001' min='0' ref={(inputAmount) => { this.inputAmount = inputAmount }} required/>
-                    <button className='btn btn-primary'>Supply</button>
+                    <input type='number' placeholder='1 ETH' step='.001' min='0' max={this.state.contractETHBal} ref={(withdrawAmount) => { this.withdrawAmount = withdrawAmount }} required/>
+                    <button className='btn btn-primary'>Withdraw</button>
               </form>
             </div>
           </div>
 
+
           <div className='row justify-content-center mt-5 mb-2'>
-            <h1>Use Wallet to Interact to Compound</h1>
+            <h1>Use Wallet to Interact with Compound</h1>
             <img src={wallet} className='mt-2' height='35px' width='50px' />
           </div>
           <div className='row justify-content-center'>
@@ -426,10 +430,14 @@ constructor(props) {
               </form>
             </div>
           </div>
-
+          
           <div className='row justify-content-center mt-4'>
-            Contract on Etherscan: 
+            Compound Wallet Contract on Etherscan: 
             <a className='ml-3' href={`https://ropsten.etherscan.io/address/${this.state.walletContractAddress}`} target='_blank'>Etherscan</a>
+          </div>
+          <div className='row justify-content-center mt-4'>
+            Compound Contract on Etherscan: 
+            <a className='ml-3' href={'https://ropsten.etherscan.io/address/0x859e9d8a4edadfedb5a2ff311243af80f85a91b8'} target='_blank'>Etherscan</a>
           </div>
           
           
